@@ -4,12 +4,12 @@ using aspnetWebApp.Models;
 
 namespace aspnetWebApp.Pages;
 
-public class EditResumeModel : PageModel 
+public class EditResumeModel : PageModel
 {
     [BindProperty]
-    public string TechnologiesText {get;set;} = "";
+    public string TechnologiesText { get; set; } = "";
     [BindProperty]
-    public Student Resume {get;set;} = new();
+    public Student Resume { get; set; } = new();
     public IActionResult OnGet(int id)
     {
         var student = CreateResumeModel.Students
@@ -31,14 +31,14 @@ public class EditResumeModel : PageModel
             Technologies = student.Technologies.ToArray()
         };
         TechnologiesText = string.Join(", ", student.Technologies);
-        return Pages();
+        return Page();
     }
 
     public IActionResult OnPost()
     {
         var student = CreateResumeModel.Students
         .FirstOrDefault(s => s.Id == Resume.Id);
-        if(student == null)
+        if (student == null)
         {
             return NotFound();
         }
@@ -54,6 +54,6 @@ public class EditResumeModel : PageModel
         .Where(technology => technology.Length > 0)
         .ToArray();
 
-        return RedirectToPage("/Resume", new {id = student.Id});
+        return RedirectToPage("/Resume", new { id = student.Id });
     }
 }
